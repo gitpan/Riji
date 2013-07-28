@@ -1,0 +1,182 @@
+package Riji::Model::Entry;
+use 5.010;
+use warnings;
+use utf8;
+
+use HTTP::Date;
+use Time::Piece;
+use URI::tag;
+
+use Mouse;
+
+extends 'Riji::Model::Article';
+
+has repo_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->file_path->relative($self->base_dir)
+    },
+);
+
+has file_history => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        $self->repo->file_history($self->repo_path, {branch => $self->blog->git_branch});
+    },
+    handles => [qw/created_by last_modified_by/],
+);
+
+has site_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my $ext = quotemeta $self->article_ext;
+        my $site_path = $self->file_path->basename;
+        $site_path =~ s/\.$ext$//;
+        "/entry/$site_path.html";
+    },
+);
+
+has url => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my $root = $self->site_url;
+        $root =~ s!/+$!!;
+        $root . $self->site_path;
+    },
+);
+
+has tag_uri => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+
+        my $tag_uri = URI->new('tag:');
+        $tag_uri->authority($self->fqdn);
+        $tag_uri->date($self->created_at->strftime('%Y-%m-%d'));
+        $tag_uri->specific($self->blog->tag_uri_specific_prefix . join('-', grep {$_ ne ''} split(m{/}, $self->site_path)));
+
+        $tag_uri;
+    },
+);
+
+has next => (
+    is      => 'rw',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my ($prev, $next) = $self->_search_prev_and_next;
+        $self->prev($prev);
+        $next;
+    },
+);
+
+has prev => (
+    is => 'rw',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my ($prev, $next) = $self->_search_prev_and_next;
+        $self->next($next);
+        $prev;
+    },
+);
+
+has last_modified_at => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+
+        my $updated_at   = $self->updated_at;
+        my $published_at = $self->published_at;
+        $published_at > $updated_at ? $published_at : $updated_at;
+    },
+);
+
+has created_at => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        localtime($_[0]->file_history->created_at);
+    },
+);
+
+has updated_at => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        localtime($_[0]->file_history->updated_at);
+    },
+);
+
+has published_at => (
+    is   => 'ro',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        if (my $pubdate = $self->header('pubdate')) {
+            return localtime(str2time($pubdate));
+        }
+        $self->created_at;
+    }
+);
+
+has raw_tags => (
+    is  => 'ro',
+    lazy => 1,
+    default => sub {
+        my $tags = shift->header('tags');
+        return [] unless $tags;
+        $tags = [map {split /\s+/, $_} split /,\s*/, $tags] unless ref $tags;
+        $tags;
+    },
+);
+
+has tags => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Riji::Model::Tag]',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        [map {$self->blog->tag($_)} @{ $self->raw_tags }];
+    },
+);
+
+no Mouse;
+
+sub BUILD {
+    my $self = shift;
+    return unless $self->file_history;
+
+    # surely assign them
+    $self->last_modified_at;
+    $self->created_at;
+}
+
+sub _search_prev_and_next {
+    my $self = shift;
+    my ($prev, $next);
+
+    my $found;
+    my @entries = @{ $self->blog->entries };
+    while (my $entry = shift @entries) {
+        if ($entry->file eq $self->file) {
+            $prev = shift @entries;
+            $found++; last;
+        }
+        $next = $entry;
+    }
+    return () unless $found;
+    ($prev, $next);
+}
+
+1;

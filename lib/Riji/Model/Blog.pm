@@ -1,7 +1,7 @@
 package Riji::Model::Blog;
+use feature ':5.10';
 use strict;
 use warnings;
-use utf8;
 
 use File::Spec;
 use Git::Repository 'FileHistory';

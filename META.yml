@@ -27,7 +27,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.0.1
+    version: v0.0.2
   Riji::CLI:
     file: lib/Riji/CLI.pm
     version: 0
@@ -86,5 +86,7 @@ requires:
   YAML::Tiny: 0
   perl: 5.010
 resources:
-  repository: ssh://git@bitbucket.org/Songmu/riji.git
-version: 0.0.1
+  bugtracker: https://github.com/Songmu/p5-Riji/issues
+  homepage: https://github.com/Songmu/p5-Riji
+  repository: git://github.com/Songmu/p5-Riji.git
+version: 0.0.2

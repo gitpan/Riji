@@ -1,7 +1,7 @@
 package Riji::Model::Atom;
+use feature ':5.10';
 use strict;
 use warnings;
-use utf8;
 
 use Time::Piece;
 use URI::tag;
@@ -62,6 +62,7 @@ has feed => (
             generator => {
                 '#text'  => 'Perl Riji',
                 -version => $Riji::VERSION,
+                -uri     => 'https://github.com/Songmu/p5-Riji',
             },
         );
         $feed->add_item(%$_) for @{ $self->entry_datas };

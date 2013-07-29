@@ -1,7 +1,7 @@
 package Riji::Model::Entry;
-use 5.010;
+use feature ':5.10';
+use strict;
 use warnings;
-use utf8;
 
 use HTTP::Date;
 use Time::Piece;

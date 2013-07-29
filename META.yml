@@ -27,12 +27,15 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.0.2
+    version: v0.0.3
   Riji::CLI:
     file: lib/Riji/CLI.pm
     version: 0
   Riji::CLI::Help:
     file: lib/Riji/CLI/Help.pm
+    version: 0
+  Riji::CLI::NewEntry:
+    file: lib/Riji/CLI/NewEntry.pm
     version: 0
   Riji::CLI::Publish:
     file: lib/Riji/CLI/Publish.pm
@@ -89,4 +92,4 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: 0.0.2
+version: 0.0.3

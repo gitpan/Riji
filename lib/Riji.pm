@@ -1,11 +1,13 @@
 package Riji;
+use strict;
+use warnings;
 use Puncheur::Lite;
 
 use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-our $VERSION = '0.0.5';
+our $VERSION = '0.0.6';
 
 __PACKAGE__->setting(
     handle_static => 1,

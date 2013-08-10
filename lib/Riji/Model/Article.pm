@@ -30,7 +30,11 @@ has page => (
 has markupper => (
     is      => 'ro',
     isa     => 'Text::Markup::Any',
-    default => sub { Text::Markup::Any->new('Text::Markdown::Discount', {html5 => 1})},
+    default => sub {
+        my $obj = Text::Markup::Any->new('Text::Markdown::Discount');
+        Text::Markdown::Discount::with_html5_tags();
+        $obj;
+    },
     handles => [qw/markup/],
 );
 
@@ -102,12 +106,17 @@ has title => (
     default => sub {
         my $self = shift;
         $self->header('title') // sub {
-            for my $line ( split /\n/, $self->body ){
+            my $prev;
+            for my $line ( split /\r?\n/, $self->body ){
                 if ( $line =~ /^#/ ){
                     $line =~ s/^[#\s]+//;
                     $line =~ s/[#\s]+$//;
                     return $line;
                 }
+                if ( $line =~ /^(?:(?:-+)|(?:=+))$/ ) {
+                    return $prev if $prev && $prev =~ /[^\s]/;
+                }
+                $prev = $line;
             }
             my $ext = quotemeta $self->article_ext;
             my $title = $self->file_path->basename;

@@ -7,7 +7,7 @@ use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-our $VERSION = '0.0.7';
+our $VERSION = '0.0.8';
 
 __PACKAGE__->setting(
     handle_static => 1,
@@ -104,6 +104,10 @@ Riji - Simple, git based blog tool
     % rjji setup
     % riji server
     % riji publish
+
+=head1 TUTORIAL
+
+L<http://songmu.github.io/p5-Riji/blog/> japanese only...
 
 =head1 DESCRIPTION
 

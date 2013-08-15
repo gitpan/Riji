@@ -27,7 +27,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.0.8
+    version: v0.0.9
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -51,6 +51,7 @@ provides:
   Riji::Models:
     file: lib/Riji/Models.pm
 requires:
+  App::Wallflower: 0
   Data::Section::Simple: 0
   File::Copy::Recursive: 0
   File::Which: 0
@@ -60,7 +61,6 @@ requires:
   List::UtilsBy: 0
   MIME::Base32: 0
   Mouse: 0
-  Net::EmptyPort: 0
   Object::Container: 0
   Path::Tiny: 0
   Plack: 0
@@ -81,4 +81,4 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: 0.0.8
+version: 0.0.9

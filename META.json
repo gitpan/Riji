@@ -77,7 +77,7 @@
    "provides" : {
       "Riji" : {
          "file" : "lib/Riji.pm",
-         "version" : "v0.0.9"
+         "version" : "v0.0.10"
       },
       "Riji::CLI" : {
          "file" : "lib/Riji/CLI.pm"
@@ -124,5 +124,5 @@
          "web" : "https://github.com/Songmu/p5-Riji"
       }
    },
-   "version" : "0.0.9"
+   "version" : "0.0.10"
 }

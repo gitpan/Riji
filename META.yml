@@ -9,7 +9,7 @@ configure_requires:
   CPAN::Meta::Prereqs: 0
   Module::Build: 0.38
 dynamic_config: 0
-generated_by: 'Minilla/v0.5.6, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Minilla/v0.7.4, CPAN::Meta::Converter version 2.132510'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -24,43 +24,33 @@ no_index:
     - eg
     - examples
     - author
+    - builder
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.0.10
+    version: v0.0.11
   Riji::CLI:
     file: lib/Riji/CLI.pm
-    version: 0
   Riji::CLI::Help:
     file: lib/Riji/CLI/Help.pm
-    version: 0
   Riji::CLI::NewEntry:
     file: lib/Riji/CLI/NewEntry.pm
-    version: 0
   Riji::CLI::Publish:
     file: lib/Riji/CLI/Publish.pm
-    version: 0
   Riji::CLI::Setup:
     file: lib/Riji/CLI/Setup.pm
-    version: 0
   Riji::Model::Article:
     file: lib/Riji/Model/Article.pm
-    version: 0
   Riji::Model::Atom:
     file: lib/Riji/Model/Atom.pm
-    version: 0
   Riji::Model::Blog:
     file: lib/Riji/Model/Blog.pm
-    version: 0
   Riji::Model::Entry:
     file: lib/Riji/Model/Entry.pm
-    version: 0
   Riji::Model::Tag:
     file: lib/Riji/Model/Tag.pm
-    version: 0
   Riji::Models:
     file: lib/Riji/Models.pm
-    version: 0
 requires:
   App::Wallflower: 0
   Data::Section::Simple: 0
@@ -92,4 +82,4 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: 0.0.10
+version: 0.0.11

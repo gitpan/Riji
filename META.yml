@@ -3,17 +3,17 @@ abstract: 'Simple, git based blog tool'
 author:
   - 'Masayuki Matsuki <y.songmu@gmail.com>'
 build_requires:
-  Test::More: 0.98
+  Test::More: '0.98'
 configure_requires:
-  CPAN::Meta: 0
-  CPAN::Meta::Prereqs: 0
-  Module::Build: 0.38
+  CPAN::Meta: '0'
+  CPAN::Meta::Prereqs: '0'
+  Module::Build: '0.38'
 dynamic_config: 0
-generated_by: 'Minilla/v0.14.1, CPAN::Meta::Converter version 2.132510'
+generated_by: 'Minilla/v0.15.2, CPAN::Meta::Converter version 2.141170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Riji
 no_index:
   directory:
@@ -28,7 +28,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.0.14
+    version: v0.1.0
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -52,37 +52,38 @@ provides:
   Riji::Models:
     file: lib/Riji/Models.pm
 requires:
-  App::Wallflower: 0
-  Data::Section::Simple: 0
-  File::Copy::Recursive: 0
-  File::Which: 0
-  Git::Repository: 0
-  Git::Repository::FileHistory: 0.03
-  HTTP::Date: 0
-  List::UtilsBy: 0
-  MIME::Base32: 0
-  Mouse: 0
-  Object::Container: 0
-  Path::Tiny: 0
-  Plack: 0
-  Puncheur::Lite: 0
-  Puncheur::Runner: 0
-  Router::Simple::Sinatraish: 0
-  String::CamelCase: 0
-  Text::Markdown::Discount: 0.10
-  Text::Markup::Any: 0
-  Text::Xslate: 0
-  Time::Piece: 0
-  URI: 0
-  URI::tag: 0
-  XML::FeedPP: 0
-  YAML::Tiny: 0
-  perl: 5.010
+  App::Wallflower: '0'
+  Data::Section::Simple: '0'
+  File::Copy::Recursive: '0'
+  File::Which: '0'
+  Git::Repository: '0'
+  Git::Repository::FileHistory: '0.03'
+  HTTP::Date: '0'
+  List::UtilsBy: '0'
+  MIME::Base32: '0'
+  Mouse: '0'
+  Object::Container: '0'
+  Path::Tiny: '0'
+  Plack: '0'
+  Puncheur: v0.1.0
+  Puncheur::Lite: '0'
+  Puncheur::Runner: '0'
+  Router::Boom::Method: '0'
+  String::CamelCase: '0'
+  Text::Markdown::Discount: '0.10'
+  Text::Markup::Any: '0'
+  Text::Xslate: '0'
+  Time::Piece: '0'
+  URI: '0'
+  URI::tag: '0'
+  XML::FeedPP: '0'
+  YAML::Tiny: '0'
+  perl: '5.010'
 resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: 0.0.14
+version: 0.1.0
 x_contributors:
   - 'Takuya Tsuchida <tsucchi@cpan.org>'
   - 'karupanerura <karupa@cpan.org>'

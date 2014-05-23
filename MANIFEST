@@ -29,5 +29,6 @@ share/tmpl/entry.tx
 share/tmpl/index.tx
 share/tmpl/tag.tx
 t/00_compile.t
+t/cli-new_entry.t
 META.yml
 MANIFEST

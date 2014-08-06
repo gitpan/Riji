@@ -11,7 +11,7 @@ configure_requires:
   CPAN::Meta::Prereqs: '0'
   Module::Build: '0.38'
 dynamic_config: 0
-generated_by: 'Minilla/v0.15.2, CPAN::Meta::Converter version 2.141170'
+generated_by: 'Minilla/v2.1.1, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -30,7 +30,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.1.1
+    version: v0.1.2
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -85,7 +85,7 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: 0.1.1
+version: 0.1.2
 x_contributors:
   - 'Takuya Tsuchida <tsucchi@cpan.org>'
   - 'karupanerura <karupa@cpan.org>'

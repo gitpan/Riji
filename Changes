@@ -1,5 +1,9 @@
 Revision history for Perl extension Riji
 
+0.1.2 2014-08-06T08:51:04Z
+
+    - stable sort order of Blog::tags()
+
 0.1.1 2014-05-23T10:50:25Z
 
     - create dir unless article/entry (monmon++)

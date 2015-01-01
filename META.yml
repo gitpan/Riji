@@ -12,7 +12,7 @@ configure_requires:
   Module::Build: '0.38'
   perl: '5.010'
 dynamic_config: 0
-generated_by: 'Minilla/v2.3.0, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Minilla/v2.3.0, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -31,7 +31,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.2.0
+    version: v0.3.0
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -40,6 +40,8 @@ provides:
     file: lib/Riji/CLI/NewEntry.pm
   Riji::CLI::Publish:
     file: lib/Riji/CLI/Publish.pm
+  Riji::CLI::Publish::Scanner:
+    file: lib/Riji/CLI/Publish/Scanner.pm
   Riji::CLI::Setup:
     file: lib/Riji/CLI/Setup.pm
   Riji::Model::Article:
@@ -68,7 +70,7 @@ requires:
   Object::Container: '0'
   Path::Tiny: '0'
   Plack: '0'
-  Puncheur: v0.1.0
+  Puncheur: v0.3.0
   Puncheur::Lite: '0'
   Puncheur::Runner: '0'
   Router::Boom::Method: '0'
@@ -85,7 +87,7 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: v0.2.0
+version: v0.3.0
 x_contributors:
   - 'Takuya Tsuchida <tsucchi@cpan.org>'
   - 'karupanerura <karupa@cpan.org>'

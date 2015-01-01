@@ -11,6 +11,7 @@ lib/Riji/CLI.pm
 lib/Riji/CLI/Help.pm
 lib/Riji/CLI/NewEntry.pm
 lib/Riji/CLI/Publish.pm
+lib/Riji/CLI/Publish/Scanner.pm
 lib/Riji/CLI/Setup.pm
 lib/Riji/Model/Article.pm
 lib/Riji/Model/Atom.pm

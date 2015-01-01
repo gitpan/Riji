@@ -4,8 +4,10 @@ use strict;
 use warnings;
 
 use Errno qw(:POSIX);
-use Path::Tiny;
-use Wallflower;
+use Path::Tiny qw/path tempdir/;
+use File::Copy::Recursive qw/dircopy/;
+
+use Riji::CLI::Publish::Scanner;
 use Wallflower::Util qw/links_from/;
 use URI;
 
@@ -38,24 +40,32 @@ sub run {
     }
 
     say "start scanning";
-    my $replace_from = quotemeta "http://localhost";
-    my $replace_to   = $conf->{site_url};
-       $replace_to =~ s!/+$!!;
-
     my $dir = $conf->{publish_dir} // 'blog';
     unless (mkdir $dir or $! == EEXIST ){
         printf "can't create $dir: $!\n";
     }
-    my $wallflower = Wallflower->new(
+
+    my $work_dir = tempdir(CLEANUP => 1);
+
+    my $site_url = URI->new($conf->{site_url});
+    my $mount_path = $site_url->path;
+       $mount_path = '' if $mount_path eq '/';
+
+    my $wallflower = Riji::CLI::Publish::Scanner->new(
         application => $app->to_psgi,
-        destination => $dir,
+        destination => $work_dir . '',
+        $mount_path ? (mount => $mount_path) : (),
+        server_name => $site_url->host,
+        $site_url->scheme ne 'http' ? (scheme => $site_url->scheme) : (),
     );
+    my $host_reg = quotemeta $site_url->host;
+
     my %seen;
-    my @queue = ('/');
+    my @queue = ($mount_path || '/');
     while (@queue) {
         my $url = URI->new( shift @queue );
         next if $seen{ $url->path }++;
-        next if $url->scheme && ! eval { $url->host =~ /localhost/ };
+        next if $url->scheme && ! eval { $url->host =~ /(?:localhost|$host_reg)/ };
 
         # get the response
         my $response = $wallflower->get($url);
@@ -72,10 +82,17 @@ sub run {
         if ($file && $file =~ /\.(?:js|css|html|xml)$/) {
             $file = path($file);
             my $content = $file->slurp_utf8;
-            $content =~ s/$replace_from/$replace_to/msg;
             $file->spew_utf8($content);
         }
     }
+
+    my $copy_from = $work_dir;
+    if ($mount_path) {
+        $mount_path =~ s!^/+!!;
+        $copy_from = path $work_dir, $mount_path;
+    }
+    dircopy $copy_from.'', $dir;
+
     say "done.";
 }
 

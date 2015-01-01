@@ -92,11 +92,22 @@ has site_path => (
     default => sub {
         my $self = shift;
 
-        my $path = '/' . $self->file_path->relative($self->base_dir);
+        my $path = '/' . $self->file_path->relative(path($self->base_dir, $self->article_dir));
         my $ext = quotemeta $self->article_ext;
         $path =~ s/\.$ext$//;
         $path .= '.' . $self->page if $self->page;
         $path . '.html';
+    },
+);
+
+has url => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my $root = $self->site_url;
+        $root =~ s!/+$!!;
+        $root . $self->site_path;
     },
 );
 

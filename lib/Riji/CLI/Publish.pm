@@ -7,11 +7,12 @@ use Errno qw(:POSIX);
 use Path::Tiny qw/path tempdir/;
 use File::Copy::Recursive qw/dircopy/;
 
-use Riji::CLI::Publish::Scanner;
 use Wallflower::Util qw/links_from/;
 use URI;
+use Path::Canonical ();
 
 use Riji;
+use Riji::CLI::Publish::Scanner;
 
 sub run {
     my ($class, @argv) = @_;
@@ -25,17 +26,18 @@ sub run {
     my $current_branch = $repo->run(qw/symbolic-ref HEAD/);
        $current_branch =~ s!refs/heads/!!;
     my $publish_branch = $app->model('Blog')->branch;
-    unless($force){
+    unless ($force){
+        my $force_announce = "or you can use --force option\n";
         if ($publish_branch ne $current_branch) {
-            die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n";
+            die "You need at publish branch [$publish_branch], so `git checkout $publish_branch` beforehand\n$force_announce";
         }
 
         if ( my $untracked = $repo->run(qw/ls-files --others --exclude-standard/) ) {
-            die "Unknown local files:\n$untracked\n\nUpdate .gitignore, or git add them\n";
+            die "Unknown local files:\n$untracked\n\nUpdate .gitignore, git add them\n$force_announce";
         }
 
         if (my $uncommited = $repo->run(qw/diff HEAD --name-only/) ) {
-            die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n";
+            die "Found uncommited changes:\n$uncommited\n\ncommit them beforehand\n$force_announce";
         }
     }
 
@@ -103,15 +105,10 @@ sub _expand_link {
         return $link
     }
 
-    $link =~ s!^(?:\./)+!!;
     $base =~ s![^/]+$!!;
-
-    while ($link =~ s!^\.\./!!) {
-        $link =~ s!^(?:\./)+!!;
-        $base =~ s![^/]+/$!!;
-    }
     $base .= '/' if $base !~ m!/$!;
-    $base . $link;
+
+    Path::Canonical::canon_path($base . $link)
 }
 
 1;

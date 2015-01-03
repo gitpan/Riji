@@ -42,7 +42,6 @@ has tag_uri_specific_prefix => (
     },
 );
 
-
 has article_dir => (
     is => 'ro',
     default => 'article',
@@ -59,6 +58,15 @@ has article_path => (
     default => sub {
         my $self = shift;
         path($self->base_dir, $self->article_dir);
+    },
+);
+
+has entry_path => (
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        path($self->base_dir, $self->entry_dir);
     },
 );
 
@@ -121,9 +129,16 @@ sub entries {
     $self->{entries} ||= [
         rev_sort_by { $_->published_at->datetime . $_->file }
         grep        { $_ && !$_->is_draft }
-        map         { $self->entry($_->basename) }
-        grep        { -f -r }
-        $self->article_path->child('entry')->children
+        map         { $self->entry($_->relative($self->entry_path) .'') }
+        do {
+            my $itr = $self->entry_path->iterator({recurse => 1});
+            my @files;
+            while (my $file = $itr->()) {
+                next unless -f -r $file;
+                push @files, $file;
+            }
+            @files;
+        }
     ];
     return $self->{entries} unless @args;
 

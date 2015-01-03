@@ -7,7 +7,7 @@ use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-use version 0.77; our $VERSION = version->declare("v0.3.2");
+use version 0.77; our $VERSION = version->declare("v0.4.0");
 
 __PACKAGE__->setting(
     handle_static => 1,
@@ -51,7 +51,7 @@ get '/{match:(?:[-_a-zA-Z0-9]+(?:\.[0-9]+)?.html)?}' => sub {
     });
 };
 
-get '/entry/{name:[-_a-zA-Z0-9]+}.html' => sub {
+get '/entry/{name:[-_a-zA-Z0-9/]+}.html' => sub {
     my ($c, $args) = @_;
 
     my $name = $args->{name};

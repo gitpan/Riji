@@ -10,7 +10,7 @@ configure_requires:
   Module::Build: '0.38'
   perl: '5.010'
 dynamic_config: 0
-generated_by: 'Minilla/v2.3.0, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Minilla/v2.3.0, CPAN::Meta::Converter version 2.142060'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,7 +29,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.4.0
+    version: v0.4.1
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -66,7 +66,6 @@ requires:
   MIME::Base32: '0'
   Mouse: '0'
   Object::Container: '0'
-  Path::Canonical: '0'
   Path::Tiny: '0'
   Plack: '0'
   Puncheur: v0.3.0
@@ -86,9 +85,10 @@ resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: v0.4.0
+version: v0.4.1
 x_contributors:
   - 'Takuya Tsuchida <tsucchi@cpan.org>'
   - 'karupanerura <karupa@cpan.org>'
   - 'monmon <lesamoureuses@gmail.com>'
   - 'trapple <trapplejp@gmail.com>'
+  - 'hitode909 <hitode909@gmail.com>'

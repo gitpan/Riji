@@ -3,7 +3,7 @@ abstract: 'Simple, git based blog tool'
 author:
   - 'Masayuki Matsuki <y.songmu@gmail.com>'
 build_requires:
-  Scope::Guard: '0'
+  File::pushd: '0'
   Test::More: '0.98'
   Test::Output: '0'
 configure_requires:
@@ -29,7 +29,7 @@ no_index:
 provides:
   Riji:
     file: lib/Riji.pm
-    version: v0.4.1
+    version: v0.4.2
   Riji::CLI:
     file: lib/Riji/CLI.pm
   Riji::CLI::Help:
@@ -81,11 +81,12 @@ requires:
   URI::tag: '0'
   XML::FeedPP: '0'
   YAML::Tiny: '0'
+  perl: '5.010'
 resources:
   bugtracker: https://github.com/Songmu/p5-Riji/issues
   homepage: https://github.com/Songmu/p5-Riji
   repository: git://github.com/Songmu/p5-Riji.git
-version: v0.4.1
+version: v0.4.2
 x_contributors:
   - 'Takuya Tsuchida <tsucchi@cpan.org>'
   - 'karupanerura <karupa@cpan.org>'

@@ -1,4 +1,5 @@
 package Riji;
+use 5.010;
 use strict;
 use warnings;
 use Puncheur::Lite;
@@ -7,12 +8,14 @@ use Encode;
 use File::Spec;
 use YAML::Tiny ();
 
-use version 0.77; our $VERSION = version->declare("v0.4.1");
+use version 0.77; our $VERSION = version->declare("v0.4.2");
 
 __PACKAGE__->setting(
     handle_static => 1,
 );
 __PACKAGE__->load_plugins(qw/Model ShareDir/);
+
+sub base_dir { state $b = File::Spec->rel2abs('./') }
 
 sub load_config {
     my $self = shift;
